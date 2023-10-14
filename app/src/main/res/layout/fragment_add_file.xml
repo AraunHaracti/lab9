@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    tools:context=".AddFileFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Создать новый файл"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textSize="18sp"/>
+    <EditText
+        android:id="@+id/name_file"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        android:textSize="15sp"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/agree_btn"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            android:text="add"/>
+        <Button
+            android:id="@+id/disagree_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            android:text="exit"/>
+
+    </LinearLayout>
+
+</LinearLayout>

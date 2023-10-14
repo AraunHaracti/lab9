@@ -2,6 +2,7 @@ package com.example.lab9;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -28,10 +29,16 @@ public class NotepadFragment extends Fragment {
     Activity mainActivity;
     FragmentNotepadBinding binding;
 
-    private final static String FILE_NAME = "content.txt";
+    private String fileName;
 
-    public NotepadFragment(Activity activity) {
+    SharedPreferences setting;
+    SharedPreferences.Editor editSetting;
+
+    public NotepadFragment(Activity activity, String fileName) {
         mainActivity = activity;
+        this.fileName = fileName;
+        setting = activity.getPreferences(Context.MODE_PRIVATE);
+        editSetting = setting.edit();
     }
 
     @Override
@@ -47,7 +54,7 @@ public class NotepadFragment extends Fragment {
         FileInputStream fin = null;
         EditText textView = binding.notepadField;
         try {
-            fin = mainActivity.getBaseContext().openFileInput(FILE_NAME);
+            fin = mainActivity.getBaseContext().openFileInput(fileName);
             byte[] bytes = new byte[fin.available()];
             fin.read(bytes);
             String text = new String (bytes);
@@ -66,6 +73,8 @@ public class NotepadFragment extends Fragment {
                 Log.e("IOException", ex.getMessage().toString());
             }
         }
+
+        binding.nameFile.setText(fileName);
 
         return binding.getRoot();
     }
@@ -92,9 +101,12 @@ public class NotepadFragment extends Fragment {
 
                     String text = binding.notepadField.getText().toString();
 
-                    fos = mainActivity.getBaseContext().openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
+                    fos = mainActivity.getBaseContext().openFileOutput(fileName, Context.MODE_PRIVATE);
 
                     fos.write(text.getBytes());
+
+                    editSetting.putString("fileName", fileName);
+                    editSetting.apply();
 
                 } catch (IOException e) {
                     Log.e("IOException", e.getMessage().toString());
@@ -112,7 +124,19 @@ public class NotepadFragment extends Fragment {
         });
 
         binding.addFile.setOnClickListener((v) -> {
+            AddFileFragment listFilesFragment = new AddFileFragment(mainActivity);
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.main_fragment, listFilesFragment, "replace_notepad_to_add_file")
+                    .addToBackStack("addFile")
+                    .commit();
+        });
 
+        binding.openFile.setOnClickListener((v) -> {
+            ListFilesFragment listFilesFragment = new ListFilesFragment(mainActivity);
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.main_fragment, listFilesFragment, "replace_notepad_to_list_files")
+                    .addToBackStack("openFiles")
+                    .commit();
         });
     }
 }

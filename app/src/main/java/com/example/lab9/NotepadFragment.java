@@ -25,10 +25,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class NotepadFragment extends Fragment {
-
     Activity mainActivity;
     FragmentNotepadBinding binding;
-
     private String fileName;
 
     SharedPreferences setting;
@@ -98,13 +96,9 @@ public class NotepadFragment extends Fragment {
             public void afterTextChanged(Editable editable) {
                 FileOutputStream fos = null;
                 try {
-
                     String text = binding.notepadField.getText().toString();
-
                     fos = mainActivity.getBaseContext().openFileOutput(fileName, Context.MODE_PRIVATE);
-
                     fos.write(text.getBytes());
-
                     editSetting.putString("fileName", fileName);
                     editSetting.apply();
 

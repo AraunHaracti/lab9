@@ -15,6 +15,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         setting = getPreferences(MODE_PRIVATE);
-        getSupportFragmentManager().beginTransaction().add(R.id.main_fragment, new NotepadFragment(this, setting.getString("fileName", "content")), "init_notepad_fragment").commit();
+
+        NotepadFragment notepadFragment =
+                new NotepadFragment(this, setting.getString("fileName", "content"));
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.main_fragment, notepadFragment, "init_notepad_fragment").commit();
     }
 }

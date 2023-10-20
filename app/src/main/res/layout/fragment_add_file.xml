@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -10,7 +11,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Создать новый файл"
+        android:text="@string/create_new_file"
         android:textAlignment="center"
         android:textStyle="bold"
         android:textSize="18sp"/>
@@ -29,14 +30,21 @@
             android:layout_width="100sp"
             android:layout_height="wrap_content"
             android:layout_margin="10sp"
-            android:text="add"/>
+            android:text="@string/add"/>
         <Button
             android:id="@+id/disagree_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10sp"
-            android:text="exit"/>
-
+            android:text="@string/exit"/>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/open_created_file"
+        android:layout_width="100sp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        android:layout_gravity="center"
+        android:text="@string/open"/>
 
 </LinearLayout>

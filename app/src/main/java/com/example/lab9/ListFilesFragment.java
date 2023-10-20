@@ -12,14 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import com.example.lab9.databinding.FragmentListFilesBinding;
 
-import java.io.FileInputStream;
-
 public class ListFilesFragment extends Fragment {
-
     Activity mainActivity;
     FragmentListFilesBinding binding;
 
@@ -44,15 +40,16 @@ public class ListFilesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         String[] listFiles = mainActivity.getBaseContext().fileList();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_list_item_1, listFiles);
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<>(this.getContext(), android.R.layout.simple_list_item_1, listFiles);
         binding.listFiles.setAdapter(adapter);
 
-        binding.listFiles.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getParentFragmentManager().beginTransaction().replace(R.id.main_fragment, new NotepadFragment(mainActivity, listFiles[position]), "").commit();
-            }
+        binding.listFiles.setOnItemClickListener((parent, view1, position, id) -> {
+            NotepadFragment notepadFragment = new NotepadFragment(mainActivity, listFiles[position]);
+            getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_fragment, notepadFragment, "")
+                    .commit();
         });
-
     }
 }
